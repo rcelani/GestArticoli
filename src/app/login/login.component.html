@@ -29,11 +29,9 @@
                     <div class="my-4 text-center">
                         <button type="submit" class="btn-login">login</button>
                     </div>
-                    @if (error) {
-                        <div class="bg-danger text-light text-center">
-                            <p class="p-2">{{ errorLogin }}</p>
-                        </div>
-                    }
+                    <div *ngIf="error" class="bg-danger text-light text-center">
+                        <p class="p-2">{{ errorLogin }}</p>
+                    </div>
                 </form>
             </div>
             
