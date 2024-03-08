@@ -1,1 +1,43 @@
-<p>create-article-form works!</p>
+<div class="container-fluid mt-4">
+    <div class="row">
+        <div class="col-12">
+        <form [formGroup]="formArticles" (ngSubmit)="onSubmit()">
+            <div>
+                <h2>Informazioni Principali</h2>
+                <div>
+                    <label for="lingua">Lingua</label>
+                    <select formControlName="lingua" id="lingua">
+                        <option *ngFor="let lang of languages" value="{{ lang }}">{{ lang }}</option>
+                    </select>
+                </div>
+                <div>
+                    <label for="title">Titolo</label>
+                    <input type="text" formControlName="title" id="title" />
+                </div>
+                <div>
+                    <label for="subtitle">Sottotitolo</label>
+                    <input type="text" formControlName="subtitle" id="subtitle" />
+                </div>
+                <div>
+                    <label for="description">Descrizione</label>
+                    <textarea formControlName="description" id="description"></textarea>
+                </div>
+                <div>
+                    <label for="destinationID">Destinazione</label>
+                    <input type="text" formControlName="destinationID" id="destinationID" />
+                </div>
+                <div>
+                    <label for="mediaImage">Immagine</label>
+                    <input
+                    type="file"
+                    accept="image/*"
+                    id="mediaImage"
+                    />
+                </div>
+            </div>
+            <!-- vari Paragrafi -->
+            <button type="submit">Invia</button>
+        </form>
+        </div>
+    </div>
+</div>
