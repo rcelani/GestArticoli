@@ -19,10 +19,9 @@ export class LoginComponent {
   constructor(private router: Router) {}
 
   login() {
-    // Esempio di controllo delle credenziali.
     if (this.username === 'admin' && this.password === 'admin') {
-      // Se le credenziali sono corrette, reindirizza l'amministratore alla dashboard di amministrazione.
-      this.router.navigate(['/admin/dashboard']);
+      // Se corrette, reindirizza l'amministratore alla dashboard di amministrazione passando come parametro al routing "username".
+      this.router.navigate(['/admin/dashboard'], { queryParams: { username: this.username }});
     } else if (this.username === '' && this.password === '') {
       this.error = true;
       this.errorLogin = 'Inserire le credenziali da amministratore';
