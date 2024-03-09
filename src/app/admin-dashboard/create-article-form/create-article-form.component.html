@@ -5,37 +5,80 @@
             <div>
                 <h2>Informazioni Principali</h2>
                 <div>
-                    <label for="lingua">Lingua</label>
+                    <label for="lingua">Lingua*</label>
                     <select formControlName="lingua" id="lingua">
-                        <option *ngFor="let lang of languages" value="{{ lang }}">{{ lang }}</option>
+                        <option *ngFor="let lang of arrLanguages" value="{{ lang }}">{{ lang }}</option>
                     </select>
                 </div>
                 <div>
-                    <label for="title">Titolo</label>
-                    <input type="text" formControlName="title" id="title" />
+                    <label for="title">Titolo*</label>
+                    <input type="text" formControlName="title" id="title" maxlength="15" />
                 </div>
                 <div>
                     <label for="subtitle">Sottotitolo</label>
-                    <input type="text" formControlName="subtitle" id="subtitle" />
+                    <input type="text" formControlName="subtitle" id="subtitle" maxlength="17" />
                 </div>
                 <div>
-                    <label for="description">Descrizione</label>
+                    <label for="description">Descrizione*</label>
                     <textarea formControlName="description" id="description"></textarea>
                 </div>
                 <div>
-                    <label for="destinationID">Destinazione</label>
-                    <input type="text" formControlName="destinationID" id="destinationID" />
+                    <label for="citta">Citt&agrave;*</label>
+                    <select formControlName="citta" id="citta">
+                        <option *ngFor="let citta of arrCapoluoghi" value="{{ citta }}">{{ citta }}</option>
+                    </select>
                 </div>
                 <div>
-                    <label for="mediaImage">Immagine</label>
+                    <label for="mediaImage">Carica Immagine*</label>
                     <input
-                    type="file"
-                    accept="image/*"
-                    id="mediaImage"
+                        type="file"
+                        accept="image/*"
+                        (change)="articlesImageChange($event)"
+                        id="mediaImage"
                     />
                 </div>
             </div>
-            <!-- vari Paragrafi -->
+
+            <!-- Paragrafi -->
+            <div formArrayName="paragraphs">
+                <div *ngFor="let paragraph of paragraphs.controls; let i = index" [formGroupName]="i">
+                    <h3>Paragrafo {{ i + 1 }}</h3>
+                    <div>
+                    <label for="paragraphTitle">Titolo del paragrafo*</label>
+                    <input
+                        type="text"
+                        formControlName="paragraphTitle"
+                        id="paragraphTitle"
+                    />
+                    </div>
+                    <div>
+                    <label for="paragraphText">Destinazione del paragrafo*</label>
+                    <textarea
+                        formControlName="paragraphText"
+                        id="paragraphText"
+                    ></textarea>
+                    </div>
+                    <div>
+                    <label for="destinationID">Citt&agrave;*</label>
+                    <input
+                        type="text"
+                        formControlName="destinationID"
+                        id="destinationID"
+                    />
+                    </div>
+                    <div>
+                    <label for="mediaImage">Immagine *</label>
+                    <input
+                        type="file"
+                        accept="image/*"
+                        (change)="paragraphImageChange($event, i)"
+                        id="mediaImage"
+                    />
+                    </div>
+                    <!-- <button type="button" (click)="resetParagraph(i)">Reset</button> -->
+                </div>
+            </div>
+            <button type="button" (click)="addParagraph()">Aggiungi paragrafo</button>
             <button type="submit">Invia</button>
         </form>
         </div>
