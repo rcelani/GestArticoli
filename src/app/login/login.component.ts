@@ -1,12 +1,13 @@
-import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import { Router } from '@angular/router';
+import { AuthenticationService } from './login-service/authentication.service';
+import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [FormsModule, CommonModule],
+  imports: [FormsModule, CommonModule, ReactiveFormsModule],
   templateUrl: './login.component.html',
   styleUrl: './login.component.css'
 })
@@ -17,18 +18,25 @@ export class LoginComponent {
   errorLogin: string = '';
   error: boolean = false;
 
-  constructor(private router: Router) {}
+  constructor(
+    private router: Router,
+    private authService: AuthenticationService
+  ) {}
 
   login() {
-    if (this.username === 'admin' && this.password === 'admin') {
-      // Se corrette, reindirizza l'amministratore alla dashboard di amministrazione passando come parametro al routing "username".
-      this.router.navigate(['/admin/dashboard'], { queryParams: { username: this.username }});
-    } else if (this.username === '' && this.password === '') {
-      this.error = true;
-      this.errorLogin = 'Inserire le credenziali da amministratore';
-    } else {
-      this.error = true;
-      this.errorLogin = 'Credenziali errate';
-    }
+    this.authService.getUserLogin(this.username, this.password).subscribe(user => {
+      if (user) {
+        if (user.role === 'admin') {
+          /* role user, verrà dirottato in dashboard Admin */
+          this.router.navigate(['/dashboard/admin']);
+        } else if (user.role === 'user') {
+          /* role user, verrà dirottato alla dashboard dello user */
+          this.router.navigate(['/dashboard/user']);
+        }
+      } else {
+        this.error = true;
+        this.errorLogin = 'Inserire le credenziali corrette';
+      }
+    });
   }
 }
