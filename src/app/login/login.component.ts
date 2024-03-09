@@ -24,19 +24,24 @@ export class LoginComponent {
   ) {}
 
   login() {
-    this.authService.getUserLogin(this.username, this.password).subscribe(user => {
-      if (user) {
-        if (user.role === 'admin') {
-          /* role user, verrà dirottato in dashboard Admin */
-          this.router.navigate(['/dashboard/admin']);
-        } else if (user.role === 'user') {
-          /* role user, verrà dirottato alla dashboard dello user */
-          this.router.navigate(['/dashboard/user']);
+      this.authService.getUserLogin(this.username, this.password).subscribe(user => {
+        if (user) {
+          if (user.role === 'admin') {
+            /* role user, verrà dirottato in dashboard Admin */
+            this.router.navigate(['/dashboard/admin'], { queryParams: { username: this.username }});
+          } else if (user.role === 'user') {
+            /* role user, verrà dirottato alla dashboard dello user */
+            this.router.navigate(['/dashboard/user'], { queryParams: { username: this.username }});
+          } 
+        } else {
+          if (this.username === '' || this.password === '') {
+            this.error = true;
+            this.errorLogin = 'Credenziali non inserite';
+          } else {
+            this.error = true;
+            this.errorLogin = 'Credenziali non valide';
+          }
         }
-      } else {
-        this.error = true;
-        this.errorLogin = 'Inserire le credenziali corrette';
-      }
-    });
+      });
   }
 }
