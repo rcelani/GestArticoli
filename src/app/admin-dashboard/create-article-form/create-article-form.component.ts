@@ -30,7 +30,7 @@ export class CreateArticleFormComponent {
       subtitle: ['', Validators.maxLength(17)],
       description: ['', Validators.required],
       cittaArticle: ['', Validators.required],
-      mediaImage: [null, Validators.required], /* manca controllo max misure img */
+      articleImg: [null, Validators.required], /* manca controllo max misure img */
       paragraphs: this.formBuilder.array([]) /* creo array di paragrafi */
     });
   }
@@ -46,9 +46,14 @@ export class CreateArticleFormComponent {
         paragraphTitle: ['', Validators.required],
         paragraphText: ['', Validators.required],
         cittaParagraph: ['', Validators.required],
-        mediaImage: [null, Validators.required]
+        paragraphImg: [null, Validators.required]
       })
     );
+  }
+
+  /* resetta il singolo paragrafo passando l'index come parametro e metodo reset */
+  resetParagraph(index: number) {
+    this.paragraphs.at(index).reset();
   }
 
   /* submit del form */

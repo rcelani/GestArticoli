@@ -29,12 +29,12 @@
                     </select>
                 </div>
                 <div>
-                    <label for="mediaImage">Carica Immagine*</label>
+                    <label for="articleImg">Carica Immagine*</label>
                     <input
                         type="file"
                         accept="image/*"
                         (change)="articlesImageChange($event)"
-                        id="mediaImage"
+                        id="articleImg"
                     />
                 </div>
             </div>
@@ -52,34 +52,34 @@
                     />
                     </div>
                     <div>
-                    <label for="paragraphText">Destinazione del paragrafo*</label>
+                    <label for="paragraphText">Descrizione del paragrafo*</label>
                     <textarea
                         formControlName="paragraphText"
                         id="paragraphText"
                     ></textarea>
                     </div>
                     <div>
-                    <label for="destinationID">Citt&agrave;*</label>
+                    <label for="cittaParagraph">Citt&agrave;*</label>
                     <input
                         type="text"
-                        formControlName="destinationID"
-                        id="destinationID"
+                        formControlName="cittaParagraph"
+                        id="cittaParagraph"
                     />
                     </div>
                     <div>
-                    <label for="mediaImage">Immagine *</label>
+                    <label for="paragraphImg">Carica immagine*</label>
                     <input
                         type="file"
                         accept="image/*"
                         (change)="paragraphImageChange($event, i)"
-                        id="mediaImage"
+                        id="paragraphImg"
                     />
                     </div>
-                    <!-- <button type="button" (click)="resetParagraph(i)">Reset</button> -->
+                    <button type="button" (click)="resetParagraph(i)">Reset</button>
                 </div>
             </div>
             <button type="button" (click)="addParagraph()">Aggiungi paragrafo</button>
-            <button type="submit">Invia</button>
+            <button type="submit">Salva</button>
         </form>
         </div>
     </div>
