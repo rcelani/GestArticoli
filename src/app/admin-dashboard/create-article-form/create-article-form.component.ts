@@ -13,12 +13,12 @@ export class CreateArticleFormComponent {
   formArticles!: FormGroup;
   arrLanguages: Array<string> = ["Italiano", "Inglese", "Spagnolo", "Francese"];
   arrCapoluoghi: Array<string> = [
-    "L'Aquila", "Potenza", "Catanzaro", "Napoli",
-    "Bologna", "Trieste", "Roma", "Genova",
+    "Roma", "Potenza", "Catanzaro", "Napoli",
+    "Bologna", "Trieste", "L'Aquila", "Genova",
     "Milano", "Ancona", "Campobasso", "Torino",
     "Bari", "Cagliari", "Palermo", "Firenze",
     "Trento", "Perugia", "Aosta", "Venezia"
-  ];
+  ].sort();
 
   constructor(private formBuilder: FormBuilder) { }
 
