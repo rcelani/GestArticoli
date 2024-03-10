@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormArray, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFormsModule } from '@angular/forms';
+import { ArticleFormService } from './article-form-service.service';
 
 @Component({
   selector: 'app-create-article-form',
@@ -14,6 +15,8 @@ export class CreateArticleFormComponent {
   errorTitle: boolean = false;
   messageSubtitle: string = '';
   errorSub: boolean = false;
+
+  msgErrForm: string = '';
   imgMessageErr: string = '';
   formArticles!: FormGroup;
 
@@ -29,7 +32,10 @@ export class CreateArticleFormComponent {
     "Trento", "Perugia", "Aosta", "Venezia"
   ].sort();
 
-  constructor(private formBuilder: FormBuilder) { }
+  constructor(
+    private formBuilder: FormBuilder,
+    private articleFormService: ArticleFormService
+  ) { }
 
   ngOnInit() {
     /* qui definisco e inizializzo il form group dell'articolo usando i validators */
@@ -86,22 +92,30 @@ export class CreateArticleFormComponent {
   }
 
   /* submit del form */
-  onSubmit() {
-    if (this.formArticles.valid) {
-      console.log(this.formArticles.value);
-      // implementare invio alle api che salverà il dato nel db
-    } else {
-      console.error('Form is invalid');
-      /* implementare messaggio di errore */
-    }
-  }
-
+  
   articlesImageChange(event: any) {
-    // implementre 
+    // implementare evento cambio img su Articolo 
+/*     const file = event.target.files[0];
+    this.formArticles.patchValue({
+      articleImg: file
+    }); */
   }
-
+  
   paragraphImageChange(event: any, index: number) {
     // implementare evento cambio immagine dei Paragrafi
+/*     const file = event.target.files[0];
+    this.paragraphs.at(index).patchValue({
+      paragraphImg: file
+    }); */
+  }
+  
+  onSubmit() {
+    if (this.formArticles.valid) {
+      this.articleFormService.sendForm(this.formArticles.value);
+    } else {
+      this.msgErrForm = "Errore nell'invio del Form";
+      console.log('Form non valido');
+    }
   }
 }
 
