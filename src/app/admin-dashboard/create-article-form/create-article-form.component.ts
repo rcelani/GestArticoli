@@ -10,8 +10,17 @@ import { FormArray, FormBuilder, FormGroup, FormsModule, Validators, ReactiveFor
   styleUrl: './create-article-form.component.css'
 })
 export class CreateArticleFormComponent {
+  messageTitle: string = '';
+  errorTitle: boolean = false;
+  messageSubtitle: string = '';
+  errorSub: boolean = false;
+  imgMessageErr: string = '';
   formArticles!: FormGroup;
-  arrLanguages: Array<string> = ["Italiano", "Inglese", "Spagnolo", "Francese"];
+
+  arrLanguages: Array<string> = [
+    "Italiano", "Inglese", "Spagnolo", "Francese"
+  ];
+
   arrCapoluoghi: Array<string> = [
     "Roma", "Potenza", "Catanzaro", "Napoli",
     "Bologna", "Trieste", "L'Aquila", "Genova",
@@ -26,8 +35,8 @@ export class CreateArticleFormComponent {
     /* qui definisco e inizializzo il form group dell'articolo usando i validators */
     this.formArticles = this.formBuilder.group({
       lingua: [this.arrLanguages[0], Validators.required],
-      title: ['', [Validators.required, Validators.maxLength(15)]],
-      subtitle: ['', Validators.maxLength(17)],
+      articleTitle: ['', [Validators.required, Validators.maxLength(15)]],
+      articleSubtitle: ['', Validators.maxLength(17)],
       description: ['', Validators.required],
       cittaArticle: ['', Validators.required],
       articleImg: [null, Validators.required], /* manca controllo max misure img */
@@ -51,6 +60,26 @@ export class CreateArticleFormComponent {
     );
   }
 
+  inputMaxWord(event: any, maxWord: number, keyForm: string) {
+    let textTitle = event.target.value;
+    let wordCount = textTitle.split(/\s+/).length;  /* divido la stringa dagli spazi */ 
+    if (wordCount > maxWord && keyForm === 'articleTitle') {
+      this.messageTitle = "Il titolo non può contenere più di" + maxWord + " parole.";
+      this.errorTitle = true;
+    } else if (wordCount > maxWord && keyForm === 'articleSubtitle') {
+      this.messageSubtitle = "Il sottotitolo non può contenere più di" + maxWord + " parole.";
+      this.errorSub = true;
+    } else {
+      if (keyForm === 'articleTitle') {
+        this.messageTitle = "";
+        this.errorTitle = false;
+      } else if (keyForm === 'articleSubtitle') {
+        this.messageSubtitle = "";
+        this.errorSub = false;
+      }
+    }
+  }
+
   /* resetta il singolo paragrafo passando l'index come parametro e metodo reset */
   resetParagraph(index: number) {
     this.paragraphs.at(index).reset();
@@ -68,7 +97,7 @@ export class CreateArticleFormComponent {
   }
 
   articlesImageChange(event: any) {
-    // implementare evento cambio immagine dell'Articolo 
+    // implementre 
   }
 
   paragraphImageChange(event: any, index: number) {

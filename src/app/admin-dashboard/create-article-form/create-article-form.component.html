@@ -8,31 +8,54 @@
                     </div>
                     <div class="d-lg-flex justify-content-lg-between row-cols-lg-2 my-4">
                         <div class="col-12 px-4">
-                            <label for="title" class="form-label me-4">Titolo*</label>
+                            <label for="articleTitle" class="form-label me-4">Titolo*</label>
                             <span class="form-text">Inserire massimo 15 parole</span>
-                            <input type="text" class="form-control" formControlName="title" id="title" maxlength="15" />
+                            <input 
+                                type="text"
+                                class="form-control"
+                                formControlName="articleTitle"
+                                id="articleTitle"
+                                (input)="inputMaxWord($event, 15, 'articleTitle')"/>
+                                <span class="text-danger fs-6 m-0" *ngIf="errorTitle">{{ messageTitle }}</span>
                         </div>
                         <div class="col-12 px-4 my-4 my-lg-0">
-                            <label for="subtitle" class="form-label me-4">Sottotitolo</label>
+                            <label for="articleSubtitle" class="form-label me-4">Sottotitolo</label>
                             <span class="form-text">Inserire massimo 17 parole</span>
-                            <input type="text" class="form-control" formControlName="subtitle" id="subtitle" maxlength="17" />
+                            <input
+                                type="text"
+                                class="form-control"
+                                formControlName="articleSubtitle"
+                                id="articleSubtitle"
+                                (input)="inputMaxWord($event, 17, 'articleSubtitle')"/>
+                            <span class="text-danger fs-6 m-0" *ngIf="errorSub">{{ messageSubtitle }}</span>
                         </div>
                     </div>
                     <div class="col-12 px-4">
                         <label for="description" class="form-label">Descrizione*</label>
-                        <textarea class="form-control" rows="4" formControlName="description" id="description"></textarea>
+                        <textarea
+                            class="form-control"
+                            rows="4"
+                            formControlName="description"
+                            id="description">
+                        </textarea>
                     </div>
                     <div class="d-lg-flex justify-content-lg-between row-cols-lg-2 my-4">
                         <div class="col-12 px-4">
                             <label class="form-label" for="cittaArticle">Citt&agrave;*</label>
                             <select class="form-select" formControlName="cittaArticle" id="cittaArticle">
-                                <option *ngFor="let citta of arrCapoluoghi" value="{{ citta }}">{{ citta }}</option>
+                                <option 
+                                    *ngFor="let citta of arrCapoluoghi" 
+                                    value="{{ citta }}" required>{{ citta }}
+                                </option>
                             </select>
                         </div>
                         <div class="col-12 px-4 my-4 my-lg-0">
                             <label class="form-label" for="lingua">Lingua*</label>
                             <select class="form-select" formControlName="lingua" id="lingua">
-                                <option *ngFor="let lang of arrLanguages" value="{{ lang }}">{{ lang }}</option>
+                                <option
+                                    *ngFor="let lang of arrLanguages"
+                                    value="{{ lang }}" required> {{ lang }}
+                                </option>
                             </select>
                         </div>
                     </div>
@@ -44,6 +67,7 @@
                             accept="image/*"
                             (change)="articlesImageChange($event)"
                             id="articleImg"
+                            required
                         />
                     </div>
                 </div>
@@ -56,27 +80,30 @@
                         </div>
                         <div class="col-12 px-4">
                             <label class="form-label" for="paragraphTitle">Titolo del paragrafo*</label>
-                            <input class="form-control" type="text" formControlName="paragraphTitle" id="paragraphTitle"/>
+                            <input class="form-control" type="text" formControlName="paragraphTitle" id="paragraphTitle" required/>
                         </div>
                         <div class="col-12 px-4 my-4">
                             <label class="form-label" for="paragraphText">Descrizione del paragrafo*</label>
-                            <textarea class="form-control" rows="4" formControlName="paragraphText" id="paragraphText"></textarea>
+                            <textarea class="form-control" rows="4" formControlName="paragraphText" id="paragraphText" required></textarea>
                         </div>
                         <div class="col-12 px-4">
                             <label class="form-label" for="cittaParagraph">Citt&agrave;*</label>
                             <select class="form-select" formControlName="cittaParagraph" id="cittaParagraph">
-                                <option *ngFor="let citta of arrCapoluoghi" value="{{ citta }}">{{ citta }}</option>
+                                <option *ngFor="let citta of arrCapoluoghi" value="{{ citta }}" required>{{ citta }}</option>
                             </select>
                         </div>
                         <div class="col-12 px-4 my-4">
                             <label class="form-label" for="paragraphImg">Carica Immagine*</label>
                             <input
-                                class="form-control "
+                                class="form-control"
                                 type="file"
                                 accept="image/*"
                                 (change)="paragraphImageChange($event, i)"
                                 id="paragraphImg"
                             />
+                            <div *ngIf="imgMessageErr" class="bg-danger text-light text-center">
+                                <p class="p-2">{{ imgMessageErr }}</p>
+                            </div>
                         </div>
                         <div class="col-12 p-4 mb-5">
                             <button type="button" class="btn btn-primary" (click)="resetParagraph(i)">Reset paragrafo</button>
