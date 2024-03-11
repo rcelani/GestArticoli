@@ -96,17 +96,13 @@ export class CreateArticleFormComponent {
   articlesImageChange(event: any) {
     // implementare evento cambio img su Articolo 
 /*     const file = event.target.files[0];
-    this.formArticles.patchValue({
-      articleImg: file
-    }); */
+    this.formArticles.patchValue({ articleImg: file }); */
   }
   
   paragraphImageChange(event: any, index: number) {
     // implementare evento cambio immagine dei Paragrafi
 /*     const file = event.target.files[0];
-    this.paragraphs.at(index).patchValue({
-      paragraphImg: file
-    }); */
+    this.paragraphs.at(index).patchValue({ paragraphImg: file }); */
   }
   
   onSubmit() {
